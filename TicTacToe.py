@@ -48,15 +48,17 @@ def check_tic_tac_toe(game):
 
     if win_found:
         print('Congratulations player', winning_player, 'is the winner!')
-    else:
-        print('No winner found.')
 
+    return winning_player
 def moves_tic_tac_toe(game):
     max_moves = 9
     curr_move = 0
     player = 1
+    winning_player = 0
+
 
     while curr_move < max_moves:
+        new_game = 'N'
         space_validated = False
         print('Player,', player, 'is up.')
         player_input = input('Enter row and column. (Format: \'ROW,COL\') ')
@@ -71,18 +73,17 @@ def moves_tic_tac_toe(game):
             player_move = player_input.split(',')
             row = int(player_move[0])
             col = int(player_move[1])
-            print('Player', player, 'move: ', row, col)
+            print('Player', player, 'move: ', row, col, '\n')
 
             if game[row][col] == 0:
                 space_validated = True
             else:
                 player_input = input('That space has already been played! Please choose an open square: ')
 
-
         game[row][col] = player
-
-
-        print(game)
+        winning_player = check_tic_tac_toe(game)
+        print_game(game)
+        print()
 
         if player == 1:
             player = 2
@@ -91,4 +92,24 @@ def moves_tic_tac_toe(game):
         else:
             player = 0
         curr_move += 1
-    print(game)
+
+        if winning_player != 0:
+            curr_move = 8
+            new_game = input('Would you like to play again? Y for yes. Any other key to quit.')
+        if winning_player == 0 and curr_move == 8:
+            print('Game is a tie!')
+            new_game = input('Would you like to play again? Y for yes. Any other key to quit.')
+
+        if new_game == 'y' or new_game == 'Y':
+            curr_move = 0
+            print_game(game)
+            game = clear_board()
+            print_game(game)
+
+def print_game(game):
+    print(game[0])
+    print(game[1])
+    print(game[2])
+
+def clear_board():
+    return [[0,0,0],[0,0,0],[0,0,0]]
