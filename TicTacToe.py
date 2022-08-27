@@ -50,6 +50,7 @@ def check_tictactoe(game):
         print('Congratulations player', winning_player, 'is the winner!')
 
     return winning_player
+
 def play_tictactoe(game):
 
     max_moves = 9
