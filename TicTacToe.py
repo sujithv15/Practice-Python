@@ -20,7 +20,7 @@ def draw_board():
         y += 1
     print('\n')
 
-def check_tic_tac_toe(game):
+def check_tictactoe(game):
     # create array for possible wins (wins also include when one row has same nonzero value)
     wins = [[0, 0, 0], [1, 1, 1], [2, 2, 2], [0, 1, 2], [2, 1, 0]]
     win_found = False
@@ -50,12 +50,12 @@ def check_tic_tac_toe(game):
         print('Congratulations player', winning_player, 'is the winner!')
 
     return winning_player
-def moves_tic_tac_toe(game):
+def play_tictactoe(game):
+
     max_moves = 9
     curr_move = 0
     player = 1
     winning_player = 0
-
 
     while curr_move < max_moves:
         new_game = 'N'
@@ -66,13 +66,16 @@ def moves_tic_tac_toe(game):
         # trying to validate user input!!
         while not space_validated:
             while len(player_input) != 3 or player_input[1] != ',' or player_input[0]\
-                    not in ['0', '1', '2'] or player_input[2] not in ['0', '1', '2']:
+                    not in ['1', '2', '3'] or player_input[2] not in ['1', '2', '3']:
                 player_input = input('Invalid entry. Please make sure response in proper, \'ROW,COL\' '
-                                     'format and row/column is within range of Tic Tac Toe baord(0 or 1 or 2): ')
+                                     'format and row/column is within range of Tic Tac Toe baord(1 or 2 or 3) '
+                                     'or press m for menu.')
+                if (player_input) == 'm' or player_input == 'M':
+                    tictactoe_menu()
 
             player_move = player_input.split(',')
-            row = int(player_move[0])
-            col = int(player_move[1])
+            row = int(player_move[0]) - 1
+            col = int(player_move[1]) - 1
             print('Player', player, 'move: ', row, col, '\n')
 
             if game[row][col] == 0:
@@ -81,7 +84,7 @@ def moves_tic_tac_toe(game):
                 player_input = input('That space has already been played! Please choose an open square: ')
 
         game[row][col] = player
-        winning_player = check_tic_tac_toe(game)
+        winning_player = check_tictactoe(game)
         print_game(game)
         print()
 
@@ -102,9 +105,13 @@ def moves_tic_tac_toe(game):
 
         if new_game == 'y' or new_game == 'Y':
             curr_move = 0
-            print_game(game)
             game = clear_board()
-            print_game(game)
+
+def tictactoe_menu():
+    user_option = int(input('Tic Tac Toe Main Menu\n1. Play!\n2. Quit\n'))
+    if user_option == 1:
+        play_tictactoe(clear_board())
+    print('Goodbye')
 
 def print_game(game):
     print(game[0])
@@ -112,4 +119,4 @@ def print_game(game):
     print(game[2])
 
 def clear_board():
-    return [[0,0,0],[0,0,0],[0,0,0]]
+    return [[0, 0, 0], [0, 0, 0], [0, 0, 0]]
