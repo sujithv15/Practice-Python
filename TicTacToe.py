@@ -95,6 +95,7 @@ def play_tictactoe(game):
             player = 1
         else:
             player = 0
+
         curr_move += 1
 
         if winning_player != 0:
