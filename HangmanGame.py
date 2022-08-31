@@ -78,5 +78,6 @@ def hangman_main_menu():
     if user_option == 1:
         clue_word = get_clue_word()
         play_hangman(clue_word)
+
     print('Goodbye')
 
